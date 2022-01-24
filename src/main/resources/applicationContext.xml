@@ -11,4 +11,11 @@
           class="ru.shvetsov.spring.ClassicalMusic">
     </bean>
 
+    <bean id="musicPlayer"
+          class="ru.shvetsov.spring.MusicPlayer">
+        <constructor-arg ref = "musicBean"/>
+    </bean>
+
+
+
 </beans>
