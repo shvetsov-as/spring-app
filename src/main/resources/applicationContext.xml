@@ -11,33 +11,41 @@
     <context:property-placeholder location="classpath:musicPlayer.properties"/>
 
     <bean id="classicalMusicBean"
-          class="ru.shvetsov.spring.ClassicalMusic">
+          class="ru.shvetsov.spring.ClassicalMusic"
+          init-method="myInitMethod"
+          destroy-method="myDestroyMethod"
+          factory-method="getInstance">
     </bean>
 
     <bean id="rockMusicBean"
-          class="ru.shvetsov.spring.RockMusic">
+          class="ru.shvetsov.spring.RockMusic"
+          init-method="myInitMethod"
+          destroy-method="myDestroyMethod"
+          factory-method="getInstance">
     </bean>
 
     <bean id="popMusicBean"
-          class="ru.shvetsov.spring.PopMusic">
+          class="ru.shvetsov.spring.PopMusic"
+          init-method="myInitMethod"
+          destroy-method="myDestroyMethod"
+          factory-method="getInstance">
     </bean>
 
     <bean id="musicPlayer"
-          class="ru.shvetsov.spring.MusicPlayer">
+          class="ru.shvetsov.spring.MusicPlayer"
+          scope="prototype">
 
         <property name="musicList">
-        <list>
-            <ref bean="classicalMusicBean"/>
-            <ref bean="rockMusicBean"/>
-            <ref bean="popMusicBean"/>
-        </list>
+            <list>
+                <ref bean="classicalMusicBean"/>
+                <ref bean="rockMusicBean"/>
+                <ref bean="popMusicBean"/>
+            </list>
         </property>
 
         <property name="name" value="${musicPlayer.name}"/>
-
         <property name="volume" value="${musicPlayer.volume}"/>
     </bean>
-
 
 
 </beans>
