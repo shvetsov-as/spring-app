@@ -10,6 +10,9 @@ public class TestSpring {
 
         //Setter Dep injection from applicationContext.xml using musicPlayer.properties
         //Can change implementation class in applicationContext.xml
+        //Init & Destroy - type VOID
+        //No input args!
+        //For scope = "prototype" -> spring doesn't call Destroy-method
         MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
         musicPlayer.playMusic();
 

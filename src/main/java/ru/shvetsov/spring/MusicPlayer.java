@@ -1,7 +1,6 @@
 package ru.shvetsov.spring;
 
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @NoArgsConstructor
@@ -39,6 +38,7 @@ public class MusicPlayer {
     public void playMusic() {
         musicList.stream().forEach(music -> System.out.println(music.getSong()));
     }
+
 
 }
 
