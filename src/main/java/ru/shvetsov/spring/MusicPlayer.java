@@ -1,23 +1,23 @@
 package ru.shvetsov.spring;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 
 @NoArgsConstructor
 //IoC
 public class MusicPlayer {
-    private IMusic music;
+    private List<IMusic> musicList;
 
     private String name;
     private int volume;
 
-    public MusicPlayer(IMusic music){
-        this.music = music;
+    public MusicPlayer(List<IMusic> musicList) {
+        this.musicList = musicList;
     }
 
-    public void setMusic(IMusic music){
-        this.music = music;
+    public void setMusicList(List<IMusic> musicList) {
+        this.musicList = musicList;
     }
 
     public String getName() {
@@ -37,7 +37,7 @@ public class MusicPlayer {
     }
 
     public void playMusic() {
-        System.out.println("Now playing: " + music.getSong());
+        musicList.stream().forEach(music -> System.out.println(music.getSong()));
     }
 
 }

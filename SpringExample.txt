@@ -1,0 +1,508 @@
+@Configuration
+class LoadDatabase {
+
+  private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
+
+  @Bean
+  CommandLineRunner initDatabase(EmployeeRepository repository) {
+
+    return args -> {
+      log.info("Preloading " + repository.save(new Employee("Bilbo Baggins", "burglar")));
+      log.info("Preloading " + repository.save(new Employee("Frodo Baggins", "thief")));
+    };
+  }
+}
+**********************************************************************************************************************************************************************************************************************************************************************
+<version>${project.parent.version}</version>
+**********************************************************************************************************************************************************************************************************************************************************************
+
+ WebClient client = WebClient.create();
+
+        String strPageText = Flux.just(newUrl).
+                flatMap(result -> client.get().uri(result).retrieve().bodyToMono(String.class))
+                .blockLast();
+**********************************************************************************************************************************************************************************************************************************************************************
+Spring Collection Injection Example with List, Set, Map and Properties
+By Arvind Rai, January 20, 2016
+On this page we will provide spring collection injection example with List, Set, Map and Properties. To populate values in the collection, spring provides different tags as follows.
+
+1. <list> is for List
+2. <set> is for Set
+3. <map> is for Map
+4. <props> is for Properties
+Spring Collection List Injection
+Spring provides <list> tag to inject java List using spring application context XML. <list> is used within <property> or <constructor-arg>. To add values in the List, spring provides <value> that is nested within <list>.
+**********************************************************************************************************************************************************************************************************************************************************************
+      <property name="myList">
+	  <list>
+	       <value>List Value A</value>
+	       <value>List Value B</value>
+	  </list>
+      </property> 
+**********************************************************************************************************************************************************************************************************************************************************************
+Spring Collection Set Injection
+Spring provides <set> tag to inject java Set using spring application context XML. <set> is used within <property> or <constructor-arg>. To add values in the Set, spring provides <value> that is nested within <set>.
+
+      <property name="mySet">
+          <set>
+            <value>Set Value A</value>
+            <value>Set Value B</value>
+          </set>
+      </property> 
+**********************************************************************************************************************************************************************************************************************************************************************
+Spring Collection Map Injection
+Spring provides <map> tag to inject java Map using spring application context XML. <map> is used within <property> or <constructor-arg>. To add values in the Map, spring provides <entry> that is nested within <map>.
+
+      <property name="myMap">
+	 <map>
+            <entry key="0" value="Map Value A"/>           
+            <entry key="1" value="Map Value B"/>
+         </map>
+      </property> 
+**********************************************************************************************************************************************************************************************************************************************************************
+Spring Collection Properties Injection
+Spring provides <props> tag to inject java Properties using spring application context XML. <props> is used within <property> or <constructor-arg>. To add values in the Properties, spring provides <prop> that is nested within <props>.
+
+      <property name="myProp">
+	<props>
+	    <prop key="propKeyA">Prop Value A</prop>
+	    <prop key="propKeyB">Prop Value B</prop>
+	</props>
+      </property>     
+**********************************************************************************************************************************************************************************************************************************************************************
+Collection Injection with <ref>
+To inject collection of objects to our beans can also be achieved by <ref>. We can provide reference of bean in our collection element population.
+
+      <property name="bookList">
+      	<list>
+      	    <ref bean="book1"/>
+      	    <ref bean="book2"/>
+      	</list>
+      </property> 
+**********************************************************************************************************************************************************************************************************************************************************************
+Complete Example
+Now we will provide complete example for spring collection injection. Here we will provide collection injection using setter based dependency injection as well as constructor based dependency injection.
+Collection Injection using <property>
+spring-config-1.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myCollection" class="com.concretepage.bean.MyCollection">
+      <property name="myList">
+	  <list>
+	       <value>List Value A</value>
+	       <value>List Value B</value>
+	  </list>
+      </property>
+      <property name="mySet">
+          <set>
+            <value>Set Value A</value>
+            <value>Set Value B</value>
+          </set>
+      </property>
+      <property name="myMap">
+	 <map>
+            <entry key="0" value="Map Value A"/>           
+            <entry key="1" value="Map Value B"/>
+         </map>
+      </property>
+      <property name="myProp">
+	<props>
+	    <prop key="propKeyA">Prop Value A</prop>
+	    <prop key="propKeyB">Prop Value B</prop>
+	</props>
+      </property>      
+      <property name="bookList">
+      	<list>
+      	    <ref bean="book1"/>
+      	    <ref bean="book2"/>
+      	</list>
+      </property>
+    </bean>
+    <bean id="book1" class="com.concretepage.bean.Book">
+    	<property name="bookId" value="100"/>
+    	<property name="bookName" value="Godan"/>
+    </bean>
+    <bean id="book2" class="com.concretepage.bean.Book">
+    	<property name="bookId" value="200"/>
+    	<property name="bookName" value="Nirmla"/>
+    </bean>    
+</beans> 
+**********************************************************************************************************************************************************************************************************************************************************************
+Collection Injection using <constructor-arg>
+spring-config-2.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myCollection" class="com.concretepage.bean.MyCollection">
+      <constructor-arg name="myList">
+	  <list>
+	       <value>List Value A</value>
+	       <value>List Value B</value>
+	  </list>
+      </constructor-arg>
+      <constructor-arg name="mySet">
+        <set>
+            <value>Set Value A</value>
+            <value>Set Value B</value>
+        </set>
+      </constructor-arg>
+      <constructor-arg name="myMap">
+	 <map>
+            <entry key="0" value="Map Value A"/>           
+            <entry key="1" value="Map Value B"/>
+         </map>
+      </constructor-arg>
+      <constructor-arg name="myProp">
+	 <props>
+	       <prop key="propKeyA">Prop Value A</prop>
+	       <prop key="propKeyB">Prop Value B</prop>
+	 </props>
+      </constructor-arg>      
+      <constructor-arg name="bookList">
+      	<list>
+      		<ref bean="book1"/>
+      		<ref bean="book2"/>
+      	</list>
+      </constructor-arg>
+    </bean>
+    <bean id="book1" class="com.concretepage.bean.Book">
+    	<property name="bookId" value="100"/>
+    	<property name="bookName" value="Godan"/>
+    </bean>
+    <bean id="book2" class="com.concretepage.bean.Book">
+    	<property name="bookId" value="200"/>
+    	<property name="bookName" value="Nirmla"/>
+    </bean>    
+</beans> 
+**********************************************************************************************************************************************************************************************************************************************************************
+Create Beans
+MyCollection.java
+
+package com.concretepage.bean;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+public class MyCollection {
+	private List<String> myList;
+	private Set<String> mySet;
+	private Map<Integer,String> myMap;	
+	private Properties myProp;	
+	private List<Book> bookList;
+	public MyCollection () {}
+	public MyCollection(List<String> myList, Set<String> mySet, Map<Integer,String> myMap, 
+			Properties myProp, List<Book> bookList) {
+		this.myList = myList;
+		this.mySet = mySet;		
+		this.myMap = myMap;
+		this.myProp = myProp;
+		this.bookList = bookList;
+	}
+	public List<String> getMyList() {
+		return myList;
+	}
+	public void setMyList(List<String> myList) {
+		this.myList = myList;
+	}
+	public Set<String> getMySet() {
+		return mySet;
+	}
+	public void setMySet(Set<String> mySet) {
+		this.mySet = mySet;
+	}
+	public Map<Integer, String> getMyMap() {
+		return myMap;
+	}
+	public void setMyMap(Map<Integer, String> myMap) {
+		this.myMap = myMap;
+	}
+	public Properties getMyProp() {
+		return myProp;
+	}
+	public void setMyProp(Properties myProp) {
+		this.myProp = myProp;
+	}
+	public List<Book> getBookList() {
+		return bookList;
+	}
+	public void setBookList(List<Book> bookList) {
+		this.bookList = bookList;
+	}
+} 
+**********************************************************************************************************************************************************************************************************************************************************************
+Book.java
+
+package com.concretepage.bean;
+public class Book {
+	private int bookId;
+	private String bookName;
+	public int getBookId() {
+		return bookId;
+	}
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
+	public String getBookName() {
+		return bookName;
+	}
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+} 
+**********************************************************************************************************************************************************************************************************************************************************************
+Run Application
+SpringDemo.java
+
+package com.concretepage;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.concretepage.bean.MyCollection;
+public class SpringDemo {
+	public static void main(String[] args) {
+		AbstractApplicationContext  context = new ClassPathXmlApplicationContext("spring-config-1.xml");
+        MyCollection myCollection=(MyCollection)context.getBean("myCollection");
+        //access list
+        System.out.println("---access list---");        
+        List<String> list=myCollection.getMyList();
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
+        //access set
+        System.out.println("---access set---");
+        Set<String> set=myCollection.getMySet();
+        Iterator<String> itr= set.iterator();
+        while(itr.hasNext()){
+        	System.out.println(itr.next());
+        }
+        //access map
+        System.out.println("---access map---");
+        Map<Integer,String> map=myCollection.getMyMap();
+        System.out.println(map.get(0));
+        System.out.println(map.get(1));
+        //access properties
+        System.out.println("---access properties---");
+        Properties prop=myCollection.getMyProp();
+        System.out.println(prop.getProperty("propKeyA"));
+        System.out.println(prop.getProperty("propKeyB"));        
+        //Access Book List
+        System.out.println("---Access Book List---");
+        System.out.println(myCollection.getBookList().get(0).getBookName());
+        System.out.println(myCollection.getBookList().get(1).getBookName());
+        context.close();
+    } 
+} 
+**********************************************************************************************************************************************************************************************************************************************************************
+Find the output.
+
+---access list---
+List Value A
+List Value B
+---access set---
+Set Value A
+Set Value B
+---access map---
+Map Value A
+Map Value B
+---access properties---
+Prop Value A
+Prop Value B
+---Access Book List---
+Godan
+Nirmla 
+
+**********************************************************************************************************************************************************************************************************************************************************************
+Сценарий
+
+Давайте рассмотрим сервис, который будет работать с киногероями. Их будет 3: Рембо, Терминатор и Гендальф. Каждый их них будет представлять отдельный класс, а родитель у них будет общий- Hero.
+
+public class Hero {
+}
+
+@Component
+public class Rambo extends Hero {
+
+    @Override
+    public String toString() {
+        return "Rambo";
+    }
+}
+
+@Component
+public class Terminator extends Hero {
+
+    @Override
+    public String toString() {
+        return "Terminator";
+    }
+}
+
+
+@Component
+public class Gandalf extends Hero {
+    @Override
+    public String toString() {
+        return "Gandalf";
+    }
+}
+
+
+Injection List'а
+
+Давайте предположим, что мы хотим создать сервис, который будет работать с героями боевиков. Наверное, придется в него заинжектить list таких героев.
+
+Не проблема! Создаем сервис и конфигурацию:
+
+@Service
+@Getter
+public class ActionHeroesService {
+    @Autowired
+    List<Hero> actionHeroes;
+}
+
+@Configuration
+public class HeroesConfig {
+
+    @Bean
+    public List<Hero> action() {
+        List<Hero> result = new ArrayList<>();
+        result.add(new Terminator());
+        result.add(new Rambo());
+        return result;
+    }
+}
+
+
+Все прекрасно, однако при проверке можно обнаружить, что в список попал и Гендальф!
+
+Spring, увидев, что надо заинжектить List, обошел bean'ы, расположенные в context'е, нашел среди них все, подходящие под generic type, собрал из них List и заинжектил его, проигнорировав наш List.
+
+Как заставить Spring сделать то, что мы хотим?
+
+**********************************************************************************************************************************************************************************************************************************************************************
+Вариант 1. Костыльный
+
+Поскольку проблема именно в попытке заинжектить интерфейс Java Collection Framework'а, можно просто заменить List на ArrayList в сервисе и,
+ конечно же, в конфигурации, чтобы Spring нашел экземпляр нужного нам класса. Тогда все будет работать так, как мы ожидали.
+
+@Configuration
+public class HeroesConfig {
+
+    @Bean
+    public ArrayList<Hero> action() {
+        ArrayList<Hero> result = new ArrayList<>();
+        result.add(new Terminator());
+        result.add(new Rambo());
+        return result;
+    }
+}
+
+@Service
+@Getter
+public class ActionHeroesService {
+    @Autowired
+    ArrayList<Hero> actionHeroes;
+}
+
+**********************************************************************************************************************************************************************************************************************************************************************
+Вариант 2. Более правильный
+
+Еще один способ связать Spring'у руки заключается в том, что можно попросить его заинжектить в сервис не абы какой List, а bean со специальным именем, добавив Qualifier. Таким образом, нам удастся заинжектить именно наш bean.
+
+@Service
+@Getter
+public class ActionHeroesService {
+    @Autowired
+    @Qualifier("action")
+    List<Hero> actionHeroes;
+}
+
+**********************************************************************************************************************************************************************************************************************************************************************
+Injection Map
+
+Если про нюанс injection'а List'а многие знают, то вот с Map'ой дела обстоят как правило хуже.
+Давайте напишем сервис, который будет работать с главными героями фильмов. Inject'иться в него будет Map'а, содержащая по ключам названия фильмов, а по значениям bean'ы главных героев:
+
+@Service
+@Getter
+public class MainCharactersService {
+    @Autowired
+    Map<String, Hero> mainCharactersByFilmName;
+}
+
+@Configuration
+public class HeroesConfig {
+
+    @Bean
+    public Map<String, Hero> mainCharactersByFilmName() {
+        Map<String, Hero> result = new HashMap<>();
+
+        result.put("rambo", new Rambo());
+        result.put("terminator", new Terminator());
+        result.put("LOTR", new Gandalf());
+
+        return result;
+    }
+}
+
+
+При запуске же можно увидеть, что ключом Гендальфа является не LOTR, а gandalf, из чего можно сделать вывод, 
+что записалось не название фильма, а имя bean'а, тогда как в случае с Рембо и терминатором просто повезло: имена главных героев совпадают с названиями фильмов.
+
+На самом деле, когда необходимо заинжектить Map'у, ключом которой является String, а значением bean'ы, Spring (как и в случае с List'ом) просто
+ проигнорирует предложенную нами Map'у, пройдется по контексту и соберет все подходящие bean'ы, и создаст Map'у с ними в качестве значений и с их именами в качестве ключей.
+
+Варианты обхода похожи на те, которые работали для List'а:
+**********************************************************************************************************************************************************************************************************************************************************************
+Вариант 1. Костыльный
+
+Заменяем Map на HashMap:
+
+@Service
+@Getter
+public class MainCharactersService {
+    @Autowired
+    HashMap<String, Hero> mainCharactersByFilmName;
+}
+
+
+@Configuration
+public class HeroesConfig {
+
+    @Bean
+    public HashMap<String, Hero> mainCharactersByFilmName() {
+        HashMap<String, Hero> result = new HashMap<>();
+
+        result.put("rambo", new Rambo());
+        result.put("terminator", new Terminator());
+        result.put("LOTR", new Gandalf());
+
+        return result;
+    }
+}
+
+**********************************************************************************************************************************************************************************************************************************************************************
+Вариант 2. Более правильный
+
+Добавляем Qualifier:
+
+@Service
+@Getter
+public class MainCharactersService {
+    @Autowired
+    @Qualifier("mainCharactersByFilmName")
+    Map<String, Hero> mainCharactersByFilmName;
+}
+**********************************************************************************************************************************************************************************************************************************************************************
