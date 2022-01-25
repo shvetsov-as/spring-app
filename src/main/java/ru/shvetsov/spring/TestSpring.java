@@ -8,11 +8,14 @@ public class TestSpring {
         //IMusic music = context.getBean("musicBean", IMusic.class);
         //MusicPlayer musicPlayer = new MusicPlayer(music);
 
-        //Auto Dep injection from applicationContext.xml
+        //Setter Dep injection from applicationContext.xml using musicPlayer.properties
         //Can change implementation class in applicationContext.xml
-        //doesn't need to change code below.
         MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
         musicPlayer.playMusic();
+
+        System.out.println(musicPlayer.getName());
+        System.out.println(musicPlayer.getVolume());
+
         context.close();
     }
 }
