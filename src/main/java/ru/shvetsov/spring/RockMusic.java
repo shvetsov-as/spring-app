@@ -2,11 +2,23 @@ package ru.shvetsov.spring;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RockMusic implements IMusic{
+@Component("musicBean") //we can add an id (default = "rockMusic")
 
-    public static RockMusic getInstance(){
+public class RockMusic implements IMusic {
+
+    @Bean
+    @Qualifier("public")
+    public static RockMusic getInstance() {
         return new RockMusic();
     }
 
@@ -14,6 +26,7 @@ public class RockMusic implements IMusic{
     public String getSong() {
         return "Rock music song name...";
     }
+
     private void myInitMethod() {
         System.out.println("Init " + RockMusic.class.getName() + " Bean");
     }
