@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 
 @NoArgsConstructor
-@Component
+//@Component
 //IoC
 public class MusicPlayer {
 //      field injection
@@ -54,7 +54,7 @@ public class MusicPlayer {
         return volume;
     }
 
-    @Autowired
+    //@Autowired
     public MusicPlayer(@Qualifier("classicalMusic") IMusic music1,
                        @Qualifier("rockMusic") IMusic music2,
                        @Qualifier("popMusic") IMusic music3) {

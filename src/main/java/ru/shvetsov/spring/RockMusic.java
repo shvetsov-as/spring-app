@@ -6,9 +6,8 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 public class RockMusic implements IMusic {
-    private List<String> songs = new ArrayList<>();
 
     @Override
     public String getSong() {
