@@ -2,10 +2,9 @@ package ru.shvetsov.spring;
 
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Random;
 
 
 @NoArgsConstructor
@@ -32,23 +31,37 @@ public class MusicPlayer {
 //        this.music = music;
 //    }
 
-    private IMusic music1;
-    private IMusic music2;
-    private IMusic music3;
+    private ClassicalMusic classicalMusic;
+    private RockMusic rockMusic;
+    private PopMusic popMusic;
 
-@Autowired
-    public MusicPlayer(@Qualifier("classicalMusic") IMusic music1,
-                       @Qualifier("musicBean")IMusic music2,
-                       @Qualifier("popMusic")IMusic music3) {
-        this.music1 = music1;
-        this.music2 = music2;
-        this.music3 = music3;
+    @Autowired
+    public MusicPlayer(ClassicalMusic classicalMusic, RockMusic rockMusic, PopMusic popMusic) {
+        this.classicalMusic = classicalMusic;
+        this.rockMusic = rockMusic;
+        this.popMusic = popMusic;
     }
 
-    public String playMusic() {
-        return "Now playing " + music1.getSong();
-//        System.out.println("Now playing " + rockMusic.getSong());
-//        System.out.println("Now playing " + popMusic.getSong());
+
+    public void playMusic(MusicGenre genre) {
+        Random random = new Random();
+
+        // случайное целое число между 0 и 2
+        int randomNumber = random.nextInt(3);
+
+        switch (genre){
+            case CLASSICAL:
+                System.out.println(classicalMusic.getSongs().get(randomNumber));
+                break;
+            case ROCK:
+                System.out.println(rockMusic.getSongs().get(randomNumber));
+                break;
+            case POP:
+                System.out.println(popMusic.getSongs().get(randomNumber));
+                break;
+            default:
+                System.out.println("No songs");
+        }
+
     }
 }
-

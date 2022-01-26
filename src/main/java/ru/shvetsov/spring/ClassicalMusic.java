@@ -1,36 +1,24 @@
 package ru.shvetsov.spring;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClassicalMusic implements IMusic {
+    private List<String> songs = new ArrayList<>();
 
-
-    @Bean
-    @Qualifier("public")
-    public static ClassicalMusic getInstance(){
-        return new ClassicalMusic();
+    // Блок инициализации объекта (англ. Instance initialization block)
+    // Выполняется каждый раз, когда создается объект класса
+    {
+        songs.add("ClassicalMusic song 1");
+        songs.add("ClassicalMusic song 2");
+        songs.add("ClassicalMusic song 3");
     }
 
     @Override
-    public String getSong() {
-        return "Classical music song name...";
-    }
-
-    private void myInitMethod() {
-        System.out.println("Init " + ClassicalMusic.class.getName() + " Bean");
-    }
-
-    private void myDestroyMethod() {
-        System.out.println("Destroy " + ClassicalMusic.class.getName() + " Bean");
+    public List<String> getSongs() {
+        return songs;
     }
 }

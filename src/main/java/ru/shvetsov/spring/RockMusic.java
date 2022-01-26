@@ -1,37 +1,25 @@
 package ru.shvetsov.spring;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Component("musicBean") //we can add an id (default = "rockMusic")
-
+@Component
 public class RockMusic implements IMusic {
+    private List<String> songs = new ArrayList<>();
 
-    @Bean
-    @Qualifier("public")
-    public static RockMusic getInstance() {
-        return new RockMusic();
+    // Блок инициализации объекта (англ. Instance initialization block)
+    // Выполняется каждый раз, когда создается объект класса
+    {
+        songs.add("RockMusic song 1");
+        songs.add("RockMusic song 2");
+        songs.add("RockMusic song 3");
     }
 
     @Override
-    public String getSong() {
-        return "Rock music song name...";
-    }
-
-    private void myInitMethod() {
-        System.out.println("Init " + RockMusic.class.getName() + " Bean");
-    }
-
-    private void myDestroyMethod() {
-        System.out.println("Destroy " + RockMusic.class.getName() + " Bean");
+    public List<String> getSongs() {
+        return songs;
     }
 }

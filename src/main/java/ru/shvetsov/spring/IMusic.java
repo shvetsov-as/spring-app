@@ -1,5 +1,7 @@
 package ru.shvetsov.spring;
 
+import java.util.List;
+
 public interface IMusic {
-    String getSong();
+    List<String> getSongs();
 }
