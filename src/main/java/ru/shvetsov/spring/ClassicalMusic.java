@@ -1,24 +1,28 @@
 package ru.shvetsov.spring;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @Component
+@Scope("prototype")
 public class ClassicalMusic implements IMusic {
-    private List<String> songs = new ArrayList<>();
 
-    // Блок инициализации объекта (англ. Instance initialization block)
-    // Выполняется каждый раз, когда создается объект класса
-    {
-        songs.add("ClassicalMusic song 1");
-        songs.add("ClassicalMusic song 2");
-        songs.add("ClassicalMusic song 3");
+    @PostConstruct
+    public void doMyInit() {
+        System.out.println("Doing my initialization");
+    }
+
+    // Для Prototype бинов не вызывается destroy-метод!
+    @PreDestroy
+    public void doMyDestroy() {
+        System.out.println("Doing my destruction");
     }
 
     @Override
-    public List<String> getSongs() {
-        return songs;
+    public String getSong() {
+        return "ClassicalMusic song playing";
     }
 }
