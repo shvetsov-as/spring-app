@@ -1,7 +1,7 @@
-package ru.shvetsov.spring;
+package ru.shvetsov.spring.music;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+
+import ru.shvetsov.spring.IMusic;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

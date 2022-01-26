@@ -1,9 +1,6 @@
-package ru.shvetsov.spring;
+package ru.shvetsov.spring.music;
 
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
+import ru.shvetsov.spring.IMusic;
 
 //@Component
 public class PopMusic implements IMusic {
